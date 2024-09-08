@@ -15,6 +15,7 @@ const RegisterViewModel = () => {
         mobileNumber: '',
     });
     const [confirmPassword,setConfirmPassword] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false); 
 
     const handleChange = (field: string, value: string) => {
         setFormData(prevData => ({
@@ -37,6 +38,7 @@ const RegisterViewModel = () => {
     };
 
     const handleSubmit = async () => {
+        setLoading(true);
         if (validateForm()) {
             try {
                 const response = await SetUserDetail(formData);
@@ -49,6 +51,7 @@ const RegisterViewModel = () => {
                 console.error('Registration error:', error);
             }
         }
+        setLoading(false);
     };
 
     return (
@@ -59,6 +62,7 @@ const RegisterViewModel = () => {
             errors={errors}
             confirmPassword={confirmPassword}
             setConfirmPassword={setConfirmPassword}
+            loading={loading}
         />
     );
 };

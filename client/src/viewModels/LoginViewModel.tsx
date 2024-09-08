@@ -11,6 +11,7 @@ const RegisterViewModel = () => {
         email: '',
         password: ''
     });
+    const [loading, setLoading] = useState<boolean>(false); 
 
     const handleChange = (field: string, value: string) => {
         setFormData(prevData => ({
@@ -29,6 +30,7 @@ const RegisterViewModel = () => {
     };
 
     const handleSubmit = async () => {
+        setLoading(true);
         if (validateForm()) {
             try {
                 const response = await GetUserDetail(formData);
@@ -42,6 +44,7 @@ const RegisterViewModel = () => {
                 console.error('Login error:', error);
             }
         }
+        setLoading(false); 
     };
 
     return (
@@ -50,6 +53,7 @@ const RegisterViewModel = () => {
             onInputChange={handleChange}
             onSubmit={handleSubmit}
             errors={errors}
+            loading={loading}
         />
     );
 };

@@ -5,6 +5,7 @@ import AnimatedInput from '../../components/FloatingLabelInput';
 import styles from './RegisterScreen.style';
 import Button from '../../components/button';
 import { navigate } from '../../services/navigation';
+import withLoader from '../../hocs/loderHOC';
 
 interface RegisterScreenProps {
     formData: {
@@ -77,4 +78,4 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({ formData, onInputChange
     );
 };
 
-export default RegisterScreen;
+export default withLoader(RegisterScreen);

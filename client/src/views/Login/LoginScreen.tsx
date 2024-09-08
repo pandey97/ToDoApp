@@ -5,6 +5,7 @@ import AnimatedInput from '../../components/FloatingLabelInput';
 import Button from '../../components/button';
 import { navigate } from '../../services/navigation';
 import styles from './LoginScreen.style';
+import withLoader from '../../hocs/loderHOC';
 
 interface LoginScreenProps {
     formData: {
@@ -55,4 +56,4 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ formData, onInputChange, onSu
     );
 };
 
-export default LoginScreen;
+export default withLoader(LoginScreen);
