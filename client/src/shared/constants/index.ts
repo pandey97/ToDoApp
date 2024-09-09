@@ -16,5 +16,8 @@ export const CONSTANTS = {
     PASSWORD: "Password",
     CNFMPASSWORD: "Confirm Password",
     ALREADYACCOUNT: "Already have an account?",
-    DONTACCOUNT: "Don't have an account?"
+    DONTACCOUNT: "Don't have an account?",
+    DAILYADVENTURE: "Your daily adventure starts now",
+    RECENTTASK: "Recent Task",
+    LOGOUT: "Logout"
 }

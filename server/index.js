@@ -5,6 +5,7 @@ import morgan from "morgan";
 import connectDB from "./config/db.js";
 import testRouter from "./routes/test.route.js"
 import authRouter from "./routes/auth.route.js"
+import toDoRouter from "./routes/home.route.js"
 
 dotenv.config();
 
@@ -24,3 +25,4 @@ app.listen(PORT, () => {
 
 app.use("/api/test", testRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/home", toDoRouter);

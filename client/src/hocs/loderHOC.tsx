@@ -9,7 +9,7 @@ const withLoader = <P extends object>(WrappedComponent: React.ComponentType<P>) 
                 {props.loading && (
                     <Modal transparent={true} animationType="fade" visible={props.loading}>
                         <View style={styles.loaderContainer}>
-                            <ActivityIndicator size="large" color="#44aafe" />
+                            <ActivityIndicator size="small" color="#44aafe" />
                         </View>
                     </Modal>
                 )}
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backgroundColor: 'rgba(0, 0, 0, 0.2)',
     },
 });
 

@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import LoginScreen from '../views/Login/LoginScreen';
 import { navigate } from '../services/navigation';
 import { SCREENS } from '../shared/constants';
 import { GetUserDetail } from '../controllers/authController';
 import { Alert } from 'react-native';
+import { MMKV } from 'react-native-mmkv';
 
-const RegisterViewModel = () => {
+const storage = new MMKV();
+
+const LoginViewModel = () => {
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
     const [formData, setFormData] = useState({
         email: '',
@@ -34,8 +37,8 @@ const RegisterViewModel = () => {
         if (validateForm()) {
             try {
                 const response = await GetUserDetail(formData);
-                console.log(response);
                 if(response.isSuccess){
+                    storage.set('user', JSON.stringify(response?.data));
                     navigate(SCREENS.HOME);
                 }else{
                     Alert.alert('Login Error', 'Email and Password not matched.', [{ text: 'OK' }]);
@@ -58,4 +61,4 @@ const RegisterViewModel = () => {
     );
 };
 
-export default RegisterViewModel;
+export default LoginViewModel;

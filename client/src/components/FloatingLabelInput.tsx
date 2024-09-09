@@ -41,7 +41,7 @@ const AnimatedTextInput: React.FC<AnimatedTextInputProps> = ({
     left: 0,
     top: animatedIsFocused.interpolate({
       inputRange: [0, 1],
-      outputRange: [18, 0],
+      outputRange: [29, 7],
     }),
     fontSize: animatedIsFocused.interpolate({
       inputRange: [0, 1],
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   input: {
-    height: 26,
+    height: 40,
     fontSize: 16,
     color: "#000",
   },

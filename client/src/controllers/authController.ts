@@ -16,7 +16,9 @@ export const SetUserDetail = async (data:RegisterUserData) => {
 
 export const GetUserDetail = async (data:LoginUserData) => {
     try {
+      console.log(data);
       const response = await sendPostRequest<LoginUser>(APIConstants.GetUser,data);
+      console.log(response);
       if (response.isSuccess) {
         return response;
       } else return response.errors;

@@ -72,6 +72,7 @@ export function sendPostRequest<T>(url: string, body: any): any {
       return handleResponse<T>(response.data);
     })
     .catch((err: any) => {
+      console.log("err",err);
       if (err.response === undefined) {
         throw new Error("something went wrong");
       }

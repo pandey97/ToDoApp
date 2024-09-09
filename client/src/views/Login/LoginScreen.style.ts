@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
     buttonContainer: {
         alignItems: 'center', // Center the button horizontally
         marginTop: 20,
-        width:'100%',
     },
     bottomButton: {
         flexDirection:'row',

@@ -5,6 +5,7 @@ const APIConstants = {
   BaseURL: "http://localhost:8080/api/",
   SetUser: "auth/register",
   GetUser: "auth/login",
+  GetTodo: "home/get-todo"
 };
 
 export default APIConstants;
