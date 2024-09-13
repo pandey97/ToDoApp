@@ -25,6 +25,10 @@ const Navigation = () => {
     checkUserToken();
   }, []);
 
+  if (isLoading) {
+    return null; // Show a loader if needed while checking the token.
+  }
+
   return (
     <NavigationContainer
       ref={navigationRef}
@@ -32,27 +36,16 @@ const Navigation = () => {
         isReadyRef.current = true;
       }}
     >
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {!userToken && (
-          <>
-            <Stack.Screen name={SCREENS.LOGIN} component={LoginViewModel} />
-            <Stack.Screen name={SCREENS.REGISTER} component={RegisterViewModel} />
-          </>
-
-        )}
-        <Stack.Screen name={SCREENS.HOME} component={HomeViewModel}/>
-        {
-          userToken && (
-            <>
-              <Stack.Screen name={SCREENS.LOGIN} component={LoginViewModel} />
-              <Stack.Screen name={SCREENS.REGISTER} component={RegisterViewModel} />
-            </>
-  
-          )
-        }
+      <Stack.Navigator
+        initialRouteName={userToken ? SCREENS.HOME : SCREENS.LOGIN}
+        screenOptions={{ headerShown: false }}
+      >
+        <Stack.Screen name={SCREENS.LOGIN} component={LoginViewModel} />
+        <Stack.Screen name={SCREENS.REGISTER} component={RegisterViewModel} />
+        <Stack.Screen name={SCREENS.HOME} component={HomeViewModel} />
       </Stack.Navigator>
     </NavigationContainer>
-  )
+  );
 }
 
 export default Navigation;

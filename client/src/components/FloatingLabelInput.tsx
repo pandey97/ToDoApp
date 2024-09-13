@@ -8,6 +8,7 @@ interface AnimatedTextInputProps {
   showForgotPassword?: boolean; 
   error?: string;
   secureTextEntry?: boolean
+  multiline?: boolean
 }
 
 const AnimatedTextInput: React.FC<AnimatedTextInputProps> = ({
@@ -16,7 +17,8 @@ const AnimatedTextInput: React.FC<AnimatedTextInputProps> = ({
   onChangeText,
   showForgotPassword,
   error,
-  secureTextEntry
+  secureTextEntry,
+  multiline
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const animatedIsFocused = useState(new Animated.Value(value ? 1 : 0))[0];
@@ -62,6 +64,7 @@ const AnimatedTextInput: React.FC<AnimatedTextInputProps> = ({
         onBlur={onBlur}
         onFocus={onFocus}
         secureTextEntry={secureTextEntry}
+        multiline={multiline}
       />
       {placeholder === "Password" && showForgotPassword && (
         <TouchableOpacity style={styles.forgotPasswordContainer}>

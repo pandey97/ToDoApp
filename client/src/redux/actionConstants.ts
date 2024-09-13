@@ -1,1 +1,2 @@
 export const SET_TODO_DATA = "SET_TODO_DATA";
+export const DELETE_TODO_DATA = "DELETE_TODO_DATA";

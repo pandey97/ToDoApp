@@ -5,7 +5,9 @@ const APIConstants = {
   BaseURL: "http://localhost:8080/api/",
   SetUser: "auth/register",
   GetUser: "auth/login",
-  GetTodo: "home/get-todo"
+  SendTodo: "home/put-todo",
+  GetTodo: "home/get-todo",
+  DeleteToDo: "home/delete-todo"
 };
 
 export default APIConstants;

@@ -33,21 +33,26 @@ const LoginViewModel = () => {
     };
 
     const handleSubmit = async () => {
-        setLoading(true);
         if (validateForm()) {
+            setLoading(true);
             try {
                 const response = await GetUserDetail(formData);
                 if(response.isSuccess){
                     storage.set('user', JSON.stringify(response?.data));
                     navigate(SCREENS.HOME);
+                    setFormData({
+                        email:'',
+                        password:''
+                    })
                 }else{
                     Alert.alert('Login Error', 'Email and Password not matched.', [{ text: 'OK' }]);
                 }
             } catch (error) {
                 console.error('Login error:', error);
+            }finally{
+                setLoading(false);
             }
         }
-        setLoading(false); 
     };
 
     return (

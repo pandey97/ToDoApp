@@ -1,9 +1,11 @@
 import express from "express";
-import {getTodoControllerData, postTodoControllerData} from "../controllers/home.controller.js";
+import {deleteTodoControllerData, editTodoControllerData, getTodoControllerData, putTodoControllerData} from "../controllers/home.controller.js";
 
 const router = express.Router();
 
 router.get('/get-todo', getTodoControllerData);
-router.post('/post-todo', postTodoControllerData);
+router.put('/put-todo', putTodoControllerData);
+router.delete('/delete-todo/:id', deleteTodoControllerData);
+router.put('/edit-todo', editTodoControllerData);
 
 export default router;

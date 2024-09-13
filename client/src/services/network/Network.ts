@@ -82,6 +82,7 @@ export function sendPostRequest<T>(url: string, body: any): any {
 }
 
 export function sendPutRequest<T>(url: string, body: any): any {
+  console.log("body",body)
   instance.defaults.headers.common.Authorization = token();
   return instance
     .put(url, body, globalConfig)
@@ -110,6 +111,7 @@ export function sendPatchRequest<T>(url: string): any {
 }
 
 export function deleteRequest<T>(url: string): any {
+  console.log("url",url)
   return instance
     .delete(url, globalConfig)
     .then((response: any) => handleResponse<T>(response.data))

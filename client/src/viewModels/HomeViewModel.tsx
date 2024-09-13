@@ -1,33 +1,110 @@
 import { View, Text } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import HomeScreen from '../views/Home/HomeScreen'
-import { GetTodoData } from '../controllers/homeController'
+import { AddTodoData, DeleteToDoData, GetTodoData } from '../controllers/homeController'
 import { IApiResponse } from '../models/IApiResponse'
-import { ToDoData } from '../models/ToDoModel'
+import { GetToDoData, ToDoData } from '../models/ToDoModel'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../redux/store/store'
-import { setToDoData } from '../redux/actions/ToDoAction'
+import { deleteToDoData, setToDoData } from '../redux/actions/ToDoAction'
 
 const HomeViewModel = () => {
   const dispatch = useDispatch();
-  const todoData = useSelector((state: RootState) => state.todoData)
+  const todoData = useSelector((state: RootState) => state.todoData);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [TodoDatas, setToDoDatas] = useState({
+    id: '',
+    title: '',
+    content: ''
+  });
 
-  const fetchData = async() => {
-    const res: IApiResponse<ToDoData> = await GetTodoData();
-    console.log(res?.data?.data);
-    if(res.isSuccess) dispatch(setToDoData(res?.data?.data));
-  }
   useEffect(() => {
     fetchData();
-  },[dispatch]);
+  }, [dispatch]);
+
+  const fetchData = async () => {
+    try {
+      setLoading(true)
+      const res: IApiResponse<ToDoData> = await GetTodoData();
+      if (res.isSuccess) dispatch(setToDoData(res?.data?.data));
+    } catch (ex) {
+      console.log(ex);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const handleEdit = (item: GetToDoData) => {
+    openModal();
+    console.log(item);
+    setToDoDatas({
+      title: item.title,
+      content: item.content,
+      id: item._id
+    })
+  }
+
+  const handleDelete = async (item: GetToDoData) => {
+    try {
+      setLoading(true);
+      const res: IApiResponse<ToDoData> = await DeleteToDoData(item?._id);
+      if (res.isSuccess) dispatch(deleteToDoData(item?._id));
+    } catch (ex) {
+      console.log(ex);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const openModal = () => {
+    console.log("openModal");
+    setIsModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+    setToDoDatas({ title: '', content: '', id: '' });
+  };
+
+  const handleSubmit = async () => {
+    try {
+      setLoading(true);
+      console.log("TodoDatas",TodoDatas);
+      const res: IApiResponse<ToDoData> = await AddTodoData(TodoDatas);
+      console.log("res",res);
+      if (res.isSuccess) dispatch(setToDoData(res?.data?.data))
+      closeModal();
+    } catch (ex) {
+      console.log(ex);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleChange = (field: string, value: string) => {
+    setToDoDatas(prevData => ({
+      ...prevData,
+      [field]: value,
+    }));
+  };
 
   return (
-    <HomeScreen 
-    {
+    <HomeScreen
+      {
       ...{
-        todoData
+        todoData,
+        handleEdit,
+        handleDelete,
+        openModal,
+        closeModal,
+        handleSubmit,
+        TodoDatas,
+        isModalVisible,
+        handleChange,
+        loading
       }
-    }/>
+      } />
   )
 }
 

@@ -19,5 +19,10 @@ export const CONSTANTS = {
     DONTACCOUNT: "Don't have an account?",
     DAILYADVENTURE: "Your daily adventure starts now",
     RECENTTASK: "Recent Task",
-    LOGOUT: "Logout"
+    LOGOUT: "Logout",
+    SUBMIT: "Submit",
+    CANCEL: "Cancel",
+    TITLE: "Title",
+    CONTENT: "Content",
+    ADDNEWTASK: "Add New Task"
 }

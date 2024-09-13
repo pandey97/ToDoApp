@@ -15,7 +15,6 @@ const Header = () => {
         const fetchUserDetails = () => {
             const userString = storage.getString('user');
             const userObject = userString ? JSON.parse(userString) : null;
-            console.log("userObject",userObject)
             setUserName(userObject?.user?.name.split(" ")[0] || 'Guest');
         };
         fetchUserDetails();
