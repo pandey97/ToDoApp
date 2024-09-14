@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, SafeAreaView, TouchableOpacity, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, SafeAreaView, TouchableOpacity, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Pressable } from 'react-native';
 import { CONSTANTS, SCREENS } from '../../shared/constants';
 import AnimatedInput from '../../components/FloatingLabelInput';
 import Button from '../../components/button';
@@ -15,9 +15,11 @@ interface LoginScreenProps {
     onInputChange: (field: string, value: string) => void;
     onSubmit: () => void;
     errors: { [key: string]: string };
+    ForgotPasswordClicked: () => void;
+    //googleLogin: () => void;
 }
 
-const LoginScreen: React.FC<LoginScreenProps> = ({ formData, onInputChange, onSubmit, errors }) => {
+const LoginScreen: React.FC<LoginScreenProps> = (props) => {
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -31,23 +33,24 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ formData, onInputChange, onSu
                     <View>
                         <AnimatedInput
                             placeholder={CONSTANTS.EMAIL}
-                            value={formData.email}
-                            onChangeText={value => onInputChange('email', value)}
-                            error={errors.email}
+                            value={props.formData.email}
+                            onChangeText={value => props.onInputChange('email', value)}
+                            error={props.errors.email}
                         />
                         <AnimatedInput
                             placeholder={CONSTANTS.PASSWORD}
-                            value={formData.password}
+                            value={props.formData.password}
                             showForgotPassword={true}
-                            onChangeText={value => onInputChange('password', value)}
-                            error={errors.password}
+                            onChangeText={value => props.onInputChange('password', value)}
+                            error={props.errors.password}
                             secureTextEntry={true}
+                            ForgotPassword={props.ForgotPasswordClicked}
                         />
                     </View>
                     <View style={styles.buttonContainer}>
                         <Button
                             text={CONSTANTS.LOGIN.toUpperCase()}
-                            onPress={async () => onSubmit()}
+                            onPress={async () => props.onSubmit()}
                         />
                         <View style={styles.bottomButton}>
                             <Text>{CONSTANTS.DONTACCOUNT}</Text>
@@ -56,6 +59,11 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ formData, onInputChange, onSu
                             </TouchableOpacity>
                         </View>
                     </View>
+                    {/* <View>
+                        <Pressable onPress={props.googleLogin}>
+                            <Text>Continue with google</Text>
+                        </Pressable>
+                    </View> */}
                 </View>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>

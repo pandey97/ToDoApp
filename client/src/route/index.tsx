@@ -7,6 +7,7 @@ import LoginViewModel from '../viewModels/LoginViewModel';
 import RegisterViewModel from '../viewModels/RegisterViewModel';
 import HomeViewModel from '../viewModels/HomeViewModel';
 import { MMKV } from 'react-native-mmkv';
+import VerificationViewModel from '../viewModels/VerificationViewModel';
 
 const Stack = createNativeStackNavigator();
 const storage = new MMKV();
@@ -42,6 +43,7 @@ const Navigation = () => {
       >
         <Stack.Screen name={SCREENS.LOGIN} component={LoginViewModel} />
         <Stack.Screen name={SCREENS.REGISTER} component={RegisterViewModel} />
+        <Stack.Screen name={SCREENS.VERIFICATION} component={VerificationViewModel} />
         <Stack.Screen name={SCREENS.HOME} component={HomeViewModel} />
       </Stack.Navigator>
     </NavigationContainer>

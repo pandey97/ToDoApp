@@ -17,7 +17,6 @@ const todoReducer = (
     switch(action.type){
         case SET_TODO_DATA: {
             const payload = action.payload;
-            console.log("payload.data",state?.todoData?.data);
             if (Array.isArray(payload?.data)) {
                 return {
                     ...state,

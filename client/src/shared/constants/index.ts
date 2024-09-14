@@ -2,7 +2,8 @@
 export const SCREENS = {
     HOME: "Home",
     REGISTER: "Register",
-    LOGIN: "Login"
+    LOGIN: "Login",
+    VERIFICATION: "Verification"
   };
 
 export const CONSTANTS = {
@@ -24,5 +25,10 @@ export const CONSTANTS = {
     CANCEL: "Cancel",
     TITLE: "Title",
     CONTENT: "Content",
-    ADDNEWTASK: "Add New Task"
+    CONTINUE: "Continue",
+    ADDNEWTASK: "Add New Task",
+    VERIFICATIONLINE: "We send you a code to verify your mobile number.",
+    EnterOTPHERE: "Enter your OTP code here",
+    DIDNTRECIEVECODE: "I don't receive a code",
+    RESEND: "Resend",
 }

@@ -7,7 +7,7 @@ const TouchableOpacityMultipleTapHandler = debounceHOC(TouchableOpacity);
 
 export interface ButtonProps {
     buttonColor?: string; // Optional color override
-    onPress: () => Promise<void>;
+    onPress?: () => Promise<void>;
     style?: object; // Updated to object for StyleSheet compatibility
     text: string;
 }
@@ -32,7 +32,7 @@ const Button: React.FC<ButtonProps> = (props) => {
 const styles = StyleSheet.create({
     btnContainerStyle: {
         alignItems: "center",
-        justifyContent: "center",
+        alignSelf:'center',
         borderRadius: 15,
         margin: 15,
         width: "100%",

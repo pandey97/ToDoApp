@@ -37,7 +37,6 @@ const HomeViewModel = () => {
 
   const handleEdit = (item: GetToDoData) => {
     openModal();
-    console.log(item);
     setToDoDatas({
       title: item.title,
       content: item.content,
@@ -58,7 +57,6 @@ const HomeViewModel = () => {
   }
 
   const openModal = () => {
-    console.log("openModal");
     setIsModalVisible(true);
   };
 
@@ -70,9 +68,7 @@ const HomeViewModel = () => {
   const handleSubmit = async () => {
     try {
       setLoading(true);
-      console.log("TodoDatas",TodoDatas);
       const res: IApiResponse<ToDoData> = await AddTodoData(TodoDatas);
-      console.log("res",res);
       if (res.isSuccess) dispatch(setToDoData(res?.data?.data))
       closeModal();
     } catch (ex) {

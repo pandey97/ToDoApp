@@ -1,25 +1,32 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, forwardRef } from "react";
 import { View, TextInput, Animated, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 interface AnimatedTextInputProps {
-  placeholder: string;
-  value: string;
-  onChangeText: (text: string) => void;
-  showForgotPassword?: boolean; 
-  error?: string;
-  secureTextEntry?: boolean
-  multiline?: boolean
+  placeholder?: string,
+  value: string,
+  onChangeText: (text: string) => void,
+  showForgotPassword?: boolean,
+  error?: string,
+  secureTextEntry?: boolean,
+  multiline?: boolean,
+  ForgotPassword?: () => void,
+  maxlength?: number,
+  style?: object
 }
 
-const AnimatedTextInput: React.FC<AnimatedTextInputProps> = ({
+// Use forwardRef to pass the ref from parent component
+const AnimatedTextInput = forwardRef<TextInput, AnimatedTextInputProps>(({
   placeholder,
   value = "",
   onChangeText,
   showForgotPassword,
   error,
   secureTextEntry,
-  multiline
-}) => {
+  multiline,
+  ForgotPassword,
+  maxlength,
+  style
+}, ref) => {
   const [isFocused, setIsFocused] = useState(false);
   const animatedIsFocused = useState(new Animated.Value(value ? 1 : 0))[0];
 
@@ -53,28 +60,30 @@ const AnimatedTextInput: React.FC<AnimatedTextInputProps> = ({
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <Animated.Text style={labelStyle}>
         {placeholder}
       </Animated.Text>
       <TextInput
+        ref={ref} // Forward the ref here
         value={value}
         onChangeText={onChangeText}
-        style={[styles.input, placeholder === "Password" && styles.passwordInput]}
+        style={[styles.input, placeholder === "Password" && styles.passwordInput, (maxlength === 1 && {textAlign: 'center'})]}
         onBlur={onBlur}
         onFocus={onFocus}
         secureTextEntry={secureTextEntry}
         multiline={multiline}
+        maxLength={maxlength === 1 ? 1 : undefined}
       />
       {placeholder === "Password" && showForgotPassword && (
-        <TouchableOpacity style={styles.forgotPasswordContainer}>
+        <TouchableOpacity style={styles.forgotPasswordContainer} onPress={ForgotPassword}>
           <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
         </TouchableOpacity>
       )}
       {error && <Text style={styles.errorText}>{error}</Text>}
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

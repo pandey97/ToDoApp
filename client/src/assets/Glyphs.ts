@@ -4,6 +4,7 @@ const Glyphs = {
     edit: require("../assets/images/edit.png"),
     delete: require("../assets/images/delete.png"),
     add: require("../assets/images/addnew.png"),
+    back: require("../assets/images/android_back_button.png"),
 };
 
 export default Glyphs;
