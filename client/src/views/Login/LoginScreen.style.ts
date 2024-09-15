@@ -38,6 +38,25 @@ const styles = StyleSheet.create({
         color:'#44aafe',
         fontWeight:'bold',
         marginHorizontal:5
+    },
+    lineContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 15,
+      },
+      line: {
+        flex: 1,
+        height: 1,
+        backgroundColor: '#d3d3d3'
+      },
+      text: {
+        marginHorizontal: 10,
+        color: '#888'
+      },
+    googleButton: {
+        alignSelf:'center',
+        marginTop:10
     }
 });
 

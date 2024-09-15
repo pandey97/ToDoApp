@@ -2,27 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { SafeAreaView, View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Glyphs from '../../../assets/Glyphs';
 import { CONSTANTS } from '../../../shared/constants';
-import { MMKV } from 'react-native-mmkv';
 import styles from './Header.style';
 import { navigate } from '../../../services/navigation';
-
-const storage = new MMKV();
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Header = () => {
     const [userName, setUserName] = useState("");
 
     useEffect(() => {
-        const fetchUserDetails = () => {
-            const userString = storage.getString('user');
-            const userObject = userString ? JSON.parse(userString) : null;
-            setUserName(userObject?.user?.name.split(" ")[0] || 'Guest');
-        };
         fetchUserDetails();
     }, []);
 
-    const LogOutPress = () => {
+    const fetchUserDetails = async() => {
+        const userString = await AsyncStorage?.getItem('user');
+        const userObject = userString ? JSON.parse(userString) : null;
+        setUserName(userObject?.user?.name.split(" ")[0] || 'Guest');
+    };
+
+    const LogOutPress = async() => {
         navigate(CONSTANTS.LOGIN);
-        storage.delete("user");
+        await AsyncStorage.removeItem("user");
     }
 
     return (

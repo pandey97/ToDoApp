@@ -15,8 +15,10 @@ interface LoginScreenProps {
     onInputChange: (field: string, value: string) => void;
     onSubmit: () => void;
     errors: { [key: string]: string };
+    loading: boolean
     ForgotPasswordClicked: () => void;
-    //googleLogin: () => void;
+    googleLogin: () => void;
+    GoogleSigninButton: any
 }
 
 const LoginScreen: React.FC<LoginScreenProps> = (props) => {
@@ -59,11 +61,19 @@ const LoginScreen: React.FC<LoginScreenProps> = (props) => {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    {/* <View>
-                        <Pressable onPress={props.googleLogin}>
-                            <Text>Continue with google</Text>
-                        </Pressable>
-                    </View> */}
+                    <View style={styles.lineContainer}>
+                        <View style={styles.line} />
+                        <Text style={styles.text}>or</Text>
+                        <View style={styles.line} />
+                    </View>
+                    <View style={styles.googleButton}>
+                        <props.GoogleSigninButton
+                            size={props.GoogleSigninButton.Size.Wide}
+                            color={props.GoogleSigninButton.Color.Dark}
+                            onPress={props.googleLogin}
+                            disabled={props.loading}
+                        />
+                    </View>
                 </View>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>

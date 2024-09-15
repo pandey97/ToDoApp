@@ -2,16 +2,20 @@ import React, { useEffect, useState } from 'react';
 import LoginScreen from '../views/Login/LoginScreen';
 import { navigate } from '../services/navigation';
 import { SCREENS } from '../shared/constants';
-import { GetUserDetail } from '../controllers/authController';
+import { GetUserDetail, SetUserDetail } from '../controllers/authController';
 import { Alert } from 'react-native';
-import { MMKV } from 'react-native-mmkv';
-// import {
-//     GoogleSignin,
-//     GoogleSigninButton,
-//     statusCodes,
-// } from '@react-native-google-signin/google-signin';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+    GoogleSignin,
+    GoogleSigninButton
+} from '@react-native-google-signin/google-signin';
 
-const storage = new MMKV();
+interface UserData {
+    name: string;
+    email: string;
+    password: string;
+    mobileNumber: string;
+}
 
 const LoginViewModel = () => {
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -21,19 +25,44 @@ const LoginViewModel = () => {
     });
     const [loading, setLoading] = useState<boolean>(false);
 
-    // useEffect(() => {
-    //     GoogleSignin.configure();
-    // },[])
+    const googleLogin = async () => {
+        try {
+            setLoading(true);
+            GoogleSignin.configure();
+            await GoogleSignin.hasPlayServices();
+            const response = await GoogleSignin.signIn();
+            console.log(response);
+            if(response.type === "success"){
+                navigate(SCREENS.HOME);
+            }
+            // const {
+            //     name ,
+            //     email,
+            //     id
+            // } = response?.data?.user || { name: '', email: '', id: '' };
 
-    // const googleLogin = async () => {
-    //     try {
-    //       await GoogleSignin.hasPlayServices();
-    //       const response = await GoogleSignin.signIn();
-    //       console.log(response);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    //   };
+            // const data: UserData = {
+            //     name,
+            //     email,
+            //     password: id,
+            //     mobileNumber: "xxxxxxxxxxx"
+            // }
+            // console.log(data);
+            // const setUser = await SetUserDetail(data);
+            // console.log("setUser",setUser);
+            // if (setUser.isSuccess) {
+            //     await AsyncStorage.setItem('user', JSON.stringify(response?.data));
+            //     navigate(SCREENS.HOME);
+            // } else {
+            //     Alert.alert('Registration Error', 'Something went wrong during registration. Please try again.', [{ text: 'OK' }]);
+            // }
+            // console.log(response);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const handleChange = (field: string, value: string) => {
         setFormData(prevData => ({
@@ -56,8 +85,9 @@ const LoginViewModel = () => {
             setLoading(true);
             try {
                 const response = await GetUserDetail(formData);
+                console.log(response);
                 if (response.isSuccess) {
-                    storage.set('user', JSON.stringify(response?.data));
+                    await AsyncStorage.setItem('user', JSON.stringify(response?.data));
                     navigate(SCREENS.HOME);
                     setFormData({
                         email: '',
@@ -86,7 +116,8 @@ const LoginViewModel = () => {
             errors={errors}
             loading={loading}
             ForgotPasswordClicked={ForgotPasswordClicked}
-            // googleLogin={googleLogin}
+            googleLogin={googleLogin}
+            GoogleSigninButton={GoogleSigninButton}
         />
     );
 };

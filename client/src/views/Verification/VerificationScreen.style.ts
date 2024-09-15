@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
     },
     headerStyle: {
         marginBottom:30,
+        marginTop:10
     },
     otpContainer: {
         flexDirection:'row',

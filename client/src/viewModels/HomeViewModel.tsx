@@ -1,4 +1,3 @@
-import { View, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import HomeScreen from '../views/Home/HomeScreen'
 import { AddTodoData, DeleteToDoData, GetTodoData } from '../controllers/homeController'
@@ -27,6 +26,7 @@ const HomeViewModel = () => {
     try {
       setLoading(true)
       const res: IApiResponse<ToDoData> = await GetTodoData();
+      console.log("res",res);
       if (res.isSuccess) dispatch(setToDoData(res?.data?.data));
     } catch (ex) {
       console.log(ex);

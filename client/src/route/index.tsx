@@ -6,11 +6,10 @@ import { SCREENS } from '../shared/constants';
 import LoginViewModel from '../viewModels/LoginViewModel';
 import RegisterViewModel from '../viewModels/RegisterViewModel';
 import HomeViewModel from '../viewModels/HomeViewModel';
-import { MMKV } from 'react-native-mmkv';
 import VerificationViewModel from '../viewModels/VerificationViewModel';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createNativeStackNavigator();
-const storage = new MMKV();
 
 const Navigation = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -18,17 +17,14 @@ const Navigation = () => {
 
   useEffect(() => {
     const checkUserToken = async () => {
-      const userString = storage.getString('user');
+      setIsLoading(true);
+      const userString = await AsyncStorage?.getItem('user');
       const userObject = userString ? JSON.parse(userString) : null;
-      setUserToken(userObject?.token);
+      setUserToken(userObject?.token || userObject?.idToken);
       setIsLoading(false);
     };
     checkUserToken();
   }, []);
-
-  if (isLoading) {
-    return null; // Show a loader if needed while checking the token.
-  }
 
   return (
     <NavigationContainer

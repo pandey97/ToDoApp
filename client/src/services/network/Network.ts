@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
 import APIConstants from "../../core/ApiConstants";
 import StatusCode from "../../core/StatusCode";
@@ -48,77 +48,78 @@ export function sendGetRequest<T>(url: string) {
   instance.defaults.headers.common.Authorization = token();
   return instance
     .get(url, globalConfig)
-    .then((response: any) => {
+    .then((response: AxiosResponse<T>) => {
       if (response.status === StatusCode.UnprocessableEntity) {
-        return handleError<T>(response);
+        return handleError<T>(response.data);
       } else if (response.status === StatusCode.SuccessOK) {
-        return handleResponse<T>(response);
+        return handleResponse<T>(response.data);
       } else throw new Error(LocalString.serverError);
     })
-    .catch((err: any) => {
-      if (err.response === undefined) {
+    .catch((err: AxiosError) => {
+      if (!err.response) {
         throw new Error(LocalString.serverError);
       }
-      return handleError<T>(err.response.data);
+      return handleError<T>(err.response.data || err.message);
     })
-    .finally(() => {});
+    .finally(() => { });
 }
 
 export function sendPostRequest<T>(url: string, body: any): any {
   instance.defaults.headers.common.Authorization = token();
   return instance
     .post(url, body, globalConfig)
-    .then((response: any) => {
+    .then((response: AxiosResponse<T>) => {
       return handleResponse<T>(response.data);
     })
-    .catch((err: any) => {
-      if (err.response === undefined) {
-        throw new Error("something went wrong");
+    .catch((err: AxiosError) => {
+      if (!err.response) {
+        console.log(err);
+        throw new Error(LocalString.serverError);
       }
-      return handleError<T>(err.response.data);
+      return handleError<T>(err.response.data || err.message);
     })
-    .finally(() => {});
+    .finally(() => { });
 }
 
 export function sendPutRequest<T>(url: string, body: any): any {
   instance.defaults.headers.common.Authorization = token();
   return instance
     .put(url, body, globalConfig)
-    .then((response: any) => handleResponse<T>(response.data))
-    .catch((err: any) => {
-      if (err.response === undefined) {
-        throw new Error("something went wrong");
+    .then((response: AxiosResponse<T>) => handleResponse<T>(response.data))
+    .catch((err: AxiosError) => {
+      if (!err.response) {
+        throw new Error(LocalString.serverError);
       }
-      return handleError<T>(err.response.data);
+      return handleError<T>(err.response.data || err.message);
     })
-    .finally(() => {});
+    .finally(() => { });
 }
 
 export function sendPatchRequest<T>(url: string): any {
   instance.defaults.headers.common.Authorization = token();
   return instance
     .patch(url, globalConfig)
-    .then((response: any) => handleResponse<T>(response.data))
-    .catch((err: any) => {
-      if (err.response === undefined) {
-        throw new Error("something went wrong");
+    .then((response: AxiosResponse<T>) => handleResponse<T>(response.data))
+    .catch((err: AxiosError) => {
+      if (!err.response) {
+        throw new Error(LocalString.serverError);
       }
-      return handleError<T>(err.response.data);
+      return handleError<T>(err.response.data || err.message);
     })
-    .finally(() => {});
+    .finally(() => { });
 }
 
 export function deleteRequest<T>(url: string): any {
   return instance
     .delete(url, globalConfig)
-    .then((response: any) => handleResponse<T>(response.data))
-    .catch((err: any) => {
-      if (err.response === undefined) {
-        throw new Error("something went wrong");
+    .then((response: AxiosResponse<T>) => handleResponse<T>(response.data))
+    .catch((err: AxiosError) => {
+      if (!err.response) {
+        throw new Error(LocalString.serverError);
       }
-      return handleError<T>(err.response.data);
+      return handleError<T>(err.response.data || err.message);
     })
-    .finally(() => {});
+    .finally(() => { });
 }
 
 function handleResponse<T>(data: T) {

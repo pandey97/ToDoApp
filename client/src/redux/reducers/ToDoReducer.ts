@@ -28,7 +28,6 @@ const todoReducer = (
             else{
                 console.log(action.payload);
                 let filterData = state.todoData.data.filter((todo: GetToDoData) => todo._id !== action.payload._id);
-                console.log("filterData",filterData);
                 return {
                     ...state,
                     todoData: {
