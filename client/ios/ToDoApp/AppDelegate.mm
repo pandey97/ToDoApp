@@ -1,8 +1,8 @@
 #import "AppDelegate.h"
 #import <Firebase.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 #import <React/RCTBundleURLProvider.h>
-
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -14,7 +14,22 @@
   self.initialProps = @{};
 
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
+  [[FBSDKApplicationDelegate sharedInstance] application:application
+                             didFinishLaunchingWithOptions:launchOptions];
+    return YES;
 }
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+            options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+
+  [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                 openURL:url
+                                                options:options];
+  return YES;
+}
+
+
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {

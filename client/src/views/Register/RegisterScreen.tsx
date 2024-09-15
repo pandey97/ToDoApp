@@ -28,44 +28,40 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({ formData, onInputChange
             style={styles.container}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.inputContainer}>
-                    <View>
-                        <Text style={styles.title}>{CONSTANTS.REGISTER}</Text>
-                        <Text style={styles.subtitle}>{CONSTANTS.REGISTERDETAIL}</Text>
-                    </View>
-                    <View>
-                        <AnimatedInput
-                            placeholder={CONSTANTS.NAME}
-                            value={formData.name}
-                            onChangeText={value => onInputChange('name', value)}
-                            error={errors.name}
-                        />
-                        <AnimatedInput
-                            placeholder={CONSTANTS.EMAIL}
-                            value={formData.email}
-                            onChangeText={value => onInputChange('email', value)}
-                            error={errors.email}
-                        />
-                        <AnimatedInput
-                            placeholder={CONSTANTS.MOBILENO}
-                            value={formData.mobileNumber}
-                            onChangeText={value => onInputChange('mobileNumber', value)}
-                            error={errors.mobileNumber}
-                        />
-                        <AnimatedInput
-                            placeholder={CONSTANTS.PASSWORD}
-                            value={formData.password}
-                            onChangeText={value => onInputChange('password', value)}
-                            error={errors.password}
-                            secureTextEntry={true}
-                        />
-                        <AnimatedInput
-                            placeholder={CONSTANTS.CNFMPASSWORD}
-                            value={confirmPassword}
-                            onChangeText={value => setConfirmPassword(value)}
-                            error={errors.confirmPassword}
-                            secureTextEntry={true}
-                        />
-                    </View>
+                    <Text style={styles.title}>{CONSTANTS.REGISTER}</Text>
+                    <Text style={styles.subtitle}>{CONSTANTS.REGISTERDETAIL}</Text>
+                    <AnimatedInput
+                        placeholder={CONSTANTS.NAME}
+                        value={formData.name}
+                        onChangeText={value => onInputChange('name', value)}
+                        error={errors.name}
+                    />
+                    <AnimatedInput
+                        placeholder={CONSTANTS.EMAIL}
+                        value={formData.email}
+                        onChangeText={value => onInputChange('email', value)}
+                        error={errors.email}
+                    />
+                    <AnimatedInput
+                        placeholder={CONSTANTS.MOBILENO}
+                        value={formData.mobileNumber}
+                        onChangeText={value => onInputChange('mobileNumber', value)}
+                        error={errors.mobileNumber}
+                    />
+                    <AnimatedInput
+                        placeholder={CONSTANTS.PASSWORD}
+                        value={formData.password}
+                        onChangeText={value => onInputChange('password', value)}
+                        error={errors.password}
+                        secureTextEntry={true}
+                    />
+                    <AnimatedInput
+                        placeholder={CONSTANTS.CNFMPASSWORD}
+                        value={confirmPassword}
+                        onChangeText={value => setConfirmPassword(value)}
+                        error={errors.confirmPassword}
+                        secureTextEntry={true}
+                    />
                     <View style={styles.buttonContainer}>
                         <Button
                             text={CONSTANTS.REGISTER.toUpperCase()}

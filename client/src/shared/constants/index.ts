@@ -31,4 +31,6 @@ export const CONSTANTS = {
     EnterOTPHERE: "Enter your OTP code here",
     DIDNTRECIEVECODE: "I don't receive a code",
     RESEND: "Resend",
+    CONTINUEFB: "Continue with Facebook",
+    SIGNINGOOGLE: "Sign in with Google"
 }

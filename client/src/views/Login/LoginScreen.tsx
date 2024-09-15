@@ -18,7 +18,9 @@ interface LoginScreenProps {
     loading: boolean
     ForgotPasswordClicked: () => void;
     googleLogin: () => void;
-    GoogleSigninButton: any
+    onFbLogin: () => void;
+    GoogleSigninButton: any;
+    LoginButton: any
 }
 
 const LoginScreen: React.FC<LoginScreenProps> = (props) => {
@@ -28,27 +30,23 @@ const LoginScreen: React.FC<LoginScreenProps> = (props) => {
             style={styles.container}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.inputContainer}>
-                    <View >
-                        <Text style={styles.title}>{CONSTANTS.LOGIN}</Text>
-                        <Text style={styles.subtitle}>{CONSTANTS.PLEASELOGIN}</Text>
-                    </View>
-                    <View>
-                        <AnimatedInput
-                            placeholder={CONSTANTS.EMAIL}
-                            value={props.formData.email}
-                            onChangeText={value => props.onInputChange('email', value)}
-                            error={props.errors.email}
-                        />
-                        <AnimatedInput
-                            placeholder={CONSTANTS.PASSWORD}
-                            value={props.formData.password}
-                            showForgotPassword={true}
-                            onChangeText={value => props.onInputChange('password', value)}
-                            error={props.errors.password}
-                            secureTextEntry={true}
-                            ForgotPassword={props.ForgotPasswordClicked}
-                        />
-                    </View>
+                    <Text style={styles.title}>{CONSTANTS.LOGIN}</Text>
+                    <Text style={styles.subtitle}>{CONSTANTS.PLEASELOGIN}</Text>
+                    <AnimatedInput
+                        placeholder={CONSTANTS.EMAIL}
+                        value={props.formData.email}
+                        onChangeText={value => props.onInputChange('email', value)}
+                        error={props.errors.email}
+                    />
+                    <AnimatedInput
+                        placeholder={CONSTANTS.PASSWORD}
+                        value={props.formData.password}
+                        showForgotPassword={true}
+                        onChangeText={value => props.onInputChange('password', value)}
+                        error={props.errors.password}
+                        secureTextEntry={true}
+                        ForgotPassword={props.ForgotPasswordClicked}
+                    />
                     <View style={styles.buttonContainer}>
                         <Button
                             text={CONSTANTS.LOGIN.toUpperCase()}
@@ -66,14 +64,20 @@ const LoginScreen: React.FC<LoginScreenProps> = (props) => {
                         <Text style={styles.text}>or</Text>
                         <View style={styles.line} />
                     </View>
-                    <View style={styles.googleButton}>
-                        <props.GoogleSigninButton
-                            size={props.GoogleSigninButton.Size.Wide}
-                            color={props.GoogleSigninButton.Color.Dark}
-                            onPress={props.googleLogin}
-                            disabled={props.loading}
-                        />
-                    </View>
+                    <TouchableOpacity
+                        style={styles.googleButton}
+                        onPress={props.googleLogin}
+                        disabled={props.loading}
+                    >
+                        <Text style={styles.buttonText}>{CONSTANTS.SIGNINGOOGLE}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.facebookButton}
+                        onPress={props.onFbLogin}
+                        disabled={props.loading}
+                    >
+                        <Text style={styles.buttonText}>{CONSTANTS.CONTINUEFB}</Text>
+                    </TouchableOpacity>
                 </View>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>

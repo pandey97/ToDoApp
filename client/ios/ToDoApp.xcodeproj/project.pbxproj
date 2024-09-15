@@ -16,6 +16,7 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A4BF1291B805C6AF012A349E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = FC2BCAEEFF7A45306646233E /* PrivacyInfo.xcprivacy */; };
 		F4E347D92C95E7AD002FF1E7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F4E347D82C95E7AD002FF1E7 /* GoogleService-Info.plist */; };
+		F4E347E02C96F29D002FF1E7 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E347DF2C96F29D002FF1E7 /* File.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,8 @@
 		D377959B20548F9A469318E8 /* Pods_ToDoApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDoApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F4E347D82C95E7AD002FF1E7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F4E347DA2C96EC2E002FF1E7 /* ToDoApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ToDoApp-Bridging-Header.h"; sourceTree = "<group>"; };
+		F4E347DF2C96F29D002FF1E7 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		FC2BCAEEFF7A45306646233E /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = ToDoApp/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,6 +102,8 @@
 				13B07FB71A68108700A75B9A /* main.m */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
 				FC2BCAEEFF7A45306646233E /* PrivacyInfo.xcprivacy */,
+				F4E347DA2C96EC2E002FF1E7 /* ToDoApp-Bridging-Header.h */,
+				F4E347DF2C96F29D002FF1E7 /* File.swift */,
 			);
 			name = ToDoApp;
 			sourceTree = "<group>";
@@ -215,7 +220,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1540;
 					};
 				};
 			};
@@ -417,6 +422,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
+				F4E347E02C96F29D002FF1E7 /* File.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -436,6 +442,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-ToDoApp-ToDoAppTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -463,6 +470,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-ToDoApp-ToDoAppTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = ToDoAppTests/Info.plist;
@@ -504,6 +512,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.todoapp;
 				PRODUCT_NAME = ToDoApp;
+				SWIFT_OBJC_BRIDGING_HEADER = "ToDoApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -530,6 +539,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.todoapp;
 				PRODUCT_NAME = ToDoApp;
+				SWIFT_OBJC_BRIDGING_HEADER = "ToDoApp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

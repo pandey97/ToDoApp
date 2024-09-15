@@ -9,13 +9,14 @@ import {
     GoogleSignin,
     GoogleSigninButton
 } from '@react-native-google-signin/google-signin';
+import { LoginManager, GraphRequest, GraphRequestManager, LoginButton } from "react-native-fbsdk";
 
-interface UserData {
-    name: string;
-    email: string;
-    password: string;
-    mobileNumber: string;
-}
+// interface UserData {
+//     name: string;
+//     email: string;
+//     password: string;
+//     mobileNumber: string;
+// }
 
 const LoginViewModel = () => {
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -31,7 +32,6 @@ const LoginViewModel = () => {
             GoogleSignin.configure();
             await GoogleSignin.hasPlayServices();
             const response = await GoogleSignin.signIn();
-            console.log(response);
             if(response.type === "success"){
                 navigate(SCREENS.HOME);
             }
@@ -63,6 +63,51 @@ const LoginViewModel = () => {
             setLoading(false);
         }
     };
+
+    const fbLogin = (resCallback: any) => {
+        LoginManager.logOut();
+        LoginManager.logInWithPermissions(['email','public_profile']).then(
+            result => {
+                if(result.declinedPermissions && result.declinedPermissions.includes('email')){
+                    resCallback({message: "Email is required"})
+                }
+                if(result.isCancelled){
+                    console.log("error");
+                }else{
+                    const infoRequest = new GraphRequest(
+                        '/me?fields=email,name,picture',
+                        null,
+                        resCallback
+                    );
+                    new GraphRequestManager().addRequest(infoRequest).start();
+                }
+            },
+            function (error:any){
+                console.log("Login fail with error:" + error)
+            }
+        )
+    }
+
+    const onFbLogin = () => {
+        try {
+            fbLogin(_responseInfoCallBack);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const _responseInfoCallBack = async (error:any, result: any) => {
+        if(error){
+            console.log("error",error);
+            return;
+        }
+        else{
+            const userData = result;
+            if(userData.email){
+                navigate(SCREENS.HOME);
+            }
+        }
+    }
 
     const handleChange = (field: string, value: string) => {
         setFormData(prevData => ({
@@ -117,7 +162,9 @@ const LoginViewModel = () => {
             loading={loading}
             ForgotPasswordClicked={ForgotPasswordClicked}
             googleLogin={googleLogin}
+            onFbLogin={onFbLogin}
             GoogleSigninButton={GoogleSigninButton}
+            LoginButton={LoginButton}
         />
     );
 };
