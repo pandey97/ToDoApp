@@ -14,36 +14,30 @@ const todoReducer = (
     state = INITIAL_STATE,
     action: IBaseReducerInterface<IToDoReducer>,
 ) => {
+    const payload = action.payload;
     switch(action.type){
         case SET_TODO_DATA: {
-            const payload = action.payload;
-            if (Array.isArray(payload?.data)) {
+            if (Array.isArray(payload)) {
                 return {
                     ...state,
-                    todoData: {
-                        ...payload,
-                    },
+                    todoData: payload
                 };
             }
             else{
-                console.log(action.payload);
-                let filterData = state.todoData.data.filter((todo: GetToDoData) => todo._id !== action.payload._id);
+                let filterData = state.todoData.filter((todo: GetToDoData) => todo._id !== action.payload._id);
                 return {
-                    ...state,
-                    todoData: {
-                        ...state.todoData,
-                        data: [...filterData, payload],
-                    },
+                    todoData: [
+                        ...filterData,
+                        payload,
+                    ],
                 };
             }
         }
         case DELETE_TODO_DATA: {
             return {
-                ...state,
-                todoData: {
-                    ...state.todoData,
-                    data: state.todoData.data.filter((todo: GetToDoData) => todo._id !== action.payload),
-                },
+                todoData: [
+                    ...state.todoData.filter((todo: GetToDoData) => todo._id !== payload),
+                ],
             };
         }
         default:

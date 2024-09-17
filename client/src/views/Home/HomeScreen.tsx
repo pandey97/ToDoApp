@@ -25,7 +25,6 @@ interface HomeScreenProps {
 }
 
 const HomeScreen = (props: HomeScreenProps) => {
-  console.log(props.isModalVisible);
   const renderItem = ({ item }: { item: GetToDoData }) => (
     <View style={styles.todoContainer}>
       <View style={styles.textContainer}>
@@ -48,7 +47,7 @@ const HomeScreen = (props: HomeScreenProps) => {
       <Header />
       <Text style={styles.headerText}>{CONSTANTS.RECENTTASK}</Text>
       <FlatList
-        data={props?.todoData?.todoData?.data}
+        data={props?.todoData?.todoData}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
       />
