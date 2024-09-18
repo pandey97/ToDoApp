@@ -26,6 +26,10 @@ const Navigation = () => {
     checkUserToken();
   }, []);
 
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <NavigationContainer
       ref={navigationRef}

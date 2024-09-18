@@ -24,7 +24,7 @@ const todoReducer = (
                 };
             }
             else{
-                let filterData = state.todoData.filter((todo: GetToDoData) => todo._id !== action.payload._id);
+                let filterData = state.todoData.filter((todo: GetToDoData) => todo?._id !== action.payload?._id);
                 return {
                     todoData: [
                         ...filterData,
@@ -36,7 +36,7 @@ const todoReducer = (
         case DELETE_TODO_DATA: {
             return {
                 todoData: [
-                    ...state.todoData.filter((todo: GetToDoData) => todo._id !== payload),
+                    ...state.todoData.filter((todo: GetToDoData) => todo?._id !== payload),
                 ],
             };
         }
