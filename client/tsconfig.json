@@ -1,3 +1,18 @@
 {
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    // ? Babel Plugin Module Resolver
+    "baseUrl": "./src",
+    "paths": {
+      "@shared-constants": ["./shared/constants"],
+      "@shared-localization": ["./shared/localization"],
+      "@components-button": ["./components/button"],
+      "@components-FloatingLabelInput": ["./components/FloatingLabelInput"],
+      "@components-header": ["./components/header"],
+      "@core-ApiConstants": ["./core/ApiConstants"],
+      "@hocs-loderHOC": ["./hocs/loderHOC"],
+    }
+  },
   "extends": "@react-native/typescript-config/tsconfig.json"
 }

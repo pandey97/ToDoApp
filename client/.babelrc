@@ -1,0 +1,28 @@
+{
+    "plugins": [
+        [
+            "module-resolver",
+            {
+                "root": [
+                    "./src"
+                ],
+                "alias": 
+                    {
+                        "@shared-constants": "./src/shared/constants",
+                        "@shared-localization": "./shared/localization",
+                        "@components-button": "./components/button",
+                        "@components-FloatingLabelInput": "./components/FloatingLabelInput",
+                        "@components-header": "./components/header",
+                        "@core-ApiConstants": "./core/ApiConstants",
+                        "@hocs-loderHOC": "./hocs/loderHOC"
+                    },
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
+                ]
+            }
+        ]
+    ]
+}
