@@ -1,11 +1,11 @@
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import React, { useRef } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { CONSTANTS, SCREENS } from '../../shared/constants'
-import AnimatedInput from '../../components/FloatingLabelInput';
+import { CONSTANTS, SCREENS } from '@shared-constants'
+import AnimatedInput from '@components-FloatingLabelInput';
 import styles from './VerificationScreen.style';
-import Button from '../../components/button';
-import ScreenHeader from '../../components/header';
+import Button from '@components-button';
+import ScreenHeader from '@components-header';
 
 interface VerificationscreenProps {
     otp: {

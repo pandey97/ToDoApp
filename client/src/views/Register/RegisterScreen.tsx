@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, SafeAreaView, TouchableOpacity, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from 'react-native';
-import { CONSTANTS, SCREENS } from '../../shared/constants';
-import AnimatedInput from '../../components/FloatingLabelInput';
+import { CONSTANTS, SCREENS } from '@shared-constants';
+import AnimatedInput from '@components-FloatingLabelInput';
 import styles from './RegisterScreen.style';
-import Button from '../../components/button';
+import Button from '@components-button';
 import { navigate } from '../../services/navigation';
-import withLoader from '../../hocs/loderHOC';
+import withLoader from '@hocs-loderHOC';
 
 interface RegisterScreenProps {
     formData: {

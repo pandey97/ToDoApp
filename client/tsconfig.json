@@ -12,6 +12,7 @@
       "@components-header": ["./components/header"],
       "@core-ApiConstants": ["./core/ApiConstants"],
       "@hocs-loderHOC": ["./hocs/loderHOC"],
+      "@assets": ["./assets/Glyphs"],
     }
   },
   "extends": "@react-native/typescript-config/tsconfig.json"

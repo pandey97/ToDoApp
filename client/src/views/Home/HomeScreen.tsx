@@ -1,12 +1,12 @@
 import { View, Text, SafeAreaView, FlatList, Image, TouchableOpacity, Button, Modal } from 'react-native'
 import React from 'react'
 import Header from './Header/Header'
-import { CONSTANTS } from '../../shared/constants'
+import { CONSTANTS } from '@shared-constants'
 import { GetToDoData, ToDoData } from '../../models/ToDoModel'
-import AnimatedInput from '../../components/FloatingLabelInput';
+import AnimatedInput from '@components-FloatingLabelInput';
 import styles from './HomeScreen.style'
-import Glyphs from '../../assets/Glyphs'
-import withLoader from '../../hocs/loderHOC'
+import Glyphs from '@assets'
+import withLoader from '@hocs-loderHOC'
 
 interface HomeScreenProps {
   todoData: any,

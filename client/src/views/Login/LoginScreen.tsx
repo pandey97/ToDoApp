@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, SafeAreaView, TouchableOpacity, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Pressable } from 'react-native';
-import { CONSTANTS, SCREENS } from '../../shared/constants';
-import AnimatedInput from '../../components/FloatingLabelInput';
-import Button from '../../components/button';
+import { CONSTANTS, SCREENS } from '@shared-constants';
+import AnimatedInput from '@components-FloatingLabelInput';
+import Button from '@components-button';
 import { navigate } from '../../services/navigation';
 import styles from './LoginScreen.style';
-import withLoader from '../../hocs/loderHOC';
+import withLoader from '@hocs-loderHOC';
 
 interface LoginScreenProps {
     formData: {
