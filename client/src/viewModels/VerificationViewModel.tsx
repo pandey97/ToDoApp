@@ -6,7 +6,7 @@ interface VerificationViewModelProps {
     route: any
 }
 
-const VerificationViewModel: React.FC<VerificationViewModelProps> = ({route}) => {
+const VerificationViewModel: React.FC<VerificationViewModelProps> = ({ route }) => {
 
     const [otp, setOtp] = useState({
         first: "",
@@ -15,9 +15,9 @@ const VerificationViewModel: React.FC<VerificationViewModelProps> = ({route}) =>
         fourth: ""
     });
 
-    useEffect(()=>{
-        
-    },[]);
+    useEffect(() => {
+
+    }, []);
 
     const firstRef = useRef<TextInput>(null);
     const secondRef = useRef<TextInput>(null);

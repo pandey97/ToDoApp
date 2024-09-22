@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import HomeScreen from '../views/Home/HomeScreen'
 import { AddTodoData, DeleteToDoData, GetTodoData } from '../controllers/homeController'
 import { IApiResponse } from '../models/IApiResponse'
@@ -6,8 +6,10 @@ import { GetToDoData, ToDoData } from '../models/ToDoModel'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../redux/store/store'
 import { deleteToDoData, setToDoData } from '../redux/actions/ToDoAction'
+import { Animated } from 'react-native'
 
 const HomeViewModel = () => {
+  const animatedValues = useRef<Animated.Value[]>([]).current;
   const dispatch = useDispatch();
   const todoData = useSelector((state: RootState) => state.todoData);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
@@ -22,11 +24,47 @@ const HomeViewModel = () => {
     fetchData();
   }, [dispatch]);
 
+  useEffect(() => {
+    if (todoData?.todoData) {
+      todoData.todoData.forEach((_: any, index: number) => {
+        if (!animatedValues[index]) {
+          animatedValues[index] = new Animated.Value(0);
+        }
+      });
+    }
+  }, [todoData.todoData]);
+
+  const shakeItem = (index: number) => {
+    console.log(animatedValues);
+    Animated.sequence([
+      Animated.timing(animatedValues[index], {
+        toValue: 10, // Move to the right
+        duration: 50,
+        useNativeDriver: true,
+      }),
+      Animated.timing(animatedValues[index], {
+        toValue: -10, // Move to the left
+        duration: 50,
+        useNativeDriver: true,
+      }),
+      Animated.timing(animatedValues[index], {
+        toValue: 10, // Move to the right again
+        duration: 50,
+        useNativeDriver: true,
+      }),
+      Animated.timing(animatedValues[index], {
+        toValue: 0, // Move back to original position
+        duration: 50,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
   const fetchData = async () => {
     try {
       setLoading(true)
       const res: IApiResponse<ToDoData> = await GetTodoData();
-      console.log("res",res);
+      console.log("res", res);
       if (res.isSuccess) dispatch(setToDoData(res?.data?.data));
     } catch (ex) {
       console.log(ex);
@@ -98,7 +136,9 @@ const HomeViewModel = () => {
         TodoDatas,
         isModalVisible,
         handleChange,
-        loading
+        loading,
+        animatedValues,
+        shakeItem
       }
       } />
   )

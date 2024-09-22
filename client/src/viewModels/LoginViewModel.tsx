@@ -32,7 +32,7 @@ const LoginViewModel = () => {
             GoogleSignin.configure();
             await GoogleSignin.hasPlayServices();
             const response = await GoogleSignin.signIn();
-            if(response.type === "success"){
+            if (response.type === "success") {
                 navigate(SCREENS.HOME);
             }
             // const {
@@ -66,14 +66,14 @@ const LoginViewModel = () => {
 
     const fbLogin = (resCallback: any) => {
         LoginManager.logOut();
-        LoginManager.logInWithPermissions(['email','public_profile']).then(
+        LoginManager.logInWithPermissions(['email', 'public_profile']).then(
             result => {
-                if(result.declinedPermissions && result.declinedPermissions.includes('email')){
-                    resCallback({message: "Email is required"})
+                if (result.declinedPermissions && result.declinedPermissions.includes('email')) {
+                    resCallback({ message: "Email is required" })
                 }
-                if(result.isCancelled){
+                if (result.isCancelled) {
                     console.log("error");
-                }else{
+                } else {
                     const infoRequest = new GraphRequest(
                         '/me?fields=email,name,picture',
                         null,
@@ -82,7 +82,7 @@ const LoginViewModel = () => {
                     new GraphRequestManager().addRequest(infoRequest).start();
                 }
             },
-            function (error:any){
+            function (error: any) {
                 console.log("Login fail with error:" + error)
             }
         )
@@ -96,14 +96,14 @@ const LoginViewModel = () => {
         }
     }
 
-    const _responseInfoCallBack = async (error:any, result: any) => {
-        if(error){
-            console.log("error",error);
+    const _responseInfoCallBack = async (error: any, result: any) => {
+        if (error) {
+            console.log("error", error);
             return;
         }
-        else{
+        else {
             const userData = result;
-            if(userData.email){
+            if (userData.email) {
                 navigate(SCREENS.HOME);
             }
         }

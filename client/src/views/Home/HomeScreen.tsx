@@ -1,5 +1,5 @@
-import { View, Text, SafeAreaView, FlatList, Image, TouchableOpacity, Button, Modal } from 'react-native'
-import React from 'react'
+import { View, Text, SafeAreaView, FlatList, Image, TouchableOpacity, Button, Modal, Animated } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
 import Header from './Header/Header'
 import { CONSTANTS } from '@shared-constants'
 import { GetToDoData, ToDoData } from '../../models/ToDoModel'
@@ -21,26 +21,35 @@ interface HomeScreenProps {
   },
   isModalVisible: boolean,
   handleChange: (field: string, value: string) => void;
-  loading: boolean
+  loading: boolean,
+  animatedValues: any,
+  shakeItem: (index: number) => void;
 }
 
 const HomeScreen = (props: HomeScreenProps) => {
-  const renderItem = ({ item }: { item: GetToDoData }) => (
-    <View style={styles.todoContainer}>
-      <View style={styles.textContainer}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.content}>{item.content}</Text>
-      </View>
+  const renderItem = ({ item, index }: { item: GetToDoData, index: number }) => (
+    <TouchableOpacity onPress={() => props.shakeItem(index)}>
+      <Animated.View
+        style={[
+          styles.todoContainer, props.animatedValues[index] &&
+          { transform: [{ translateX: props.animatedValues[index] }] }, // Apply the shake animation
+        ]}
+      >
+        <View style={styles.textContainer}>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.content}>{item.content}</Text>
+        </View>
 
-      <View style={styles.iconContainer}>
-        <TouchableOpacity onPress={() => props.handleEdit(item)}>
-          <Image source={Glyphs.edit} style={styles.icon} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => props.handleDelete(item)}>
-          <Image source={Glyphs.delete} style={styles.icon} />
-        </TouchableOpacity>
-      </View>
-    </View>
+        <View style={styles.iconContainer}>
+          <TouchableOpacity onPress={() => props.handleEdit(item)}>
+            <Image source={Glyphs.edit} style={styles.icon} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => props.handleDelete(item)}>
+            <Image source={Glyphs.delete} style={styles.icon} />
+          </TouchableOpacity>
+        </View>
+      </Animated.View>
+    </TouchableOpacity>
   );
   return (
     <SafeAreaView style={styles.container}>

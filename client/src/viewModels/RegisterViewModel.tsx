@@ -14,8 +14,8 @@ const RegisterViewModel = () => {
         password: '',
         mobileNumber: '',
     });
-    const [confirmPassword,setConfirmPassword] = useState<string>("");
-    const [loading, setLoading] = useState<boolean>(false); 
+    const [confirmPassword, setConfirmPassword] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
 
     const handleChange = (field: string, value: string) => {
         setFormData(prevData => ({
@@ -42,9 +42,9 @@ const RegisterViewModel = () => {
         if (validateForm()) {
             try {
                 const response = await SetUserDetail(formData);
-                if(response.isSuccess){
+                if (response.isSuccess) {
                     navigate(SCREENS.LOGIN);
-                }else{
+                } else {
                     Alert.alert('Registration Error', 'Something went wrong during registration. Please try again.', [{ text: 'OK' }]);
                 }
             } catch (error) {
